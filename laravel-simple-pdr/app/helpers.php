@@ -3,6 +3,7 @@
 use App\Models\partner;
 use App\Models\section;
 use App\Models\setting;
+use App\Models\skill;
 
 function get_setting_value($key)
 {
@@ -25,5 +26,11 @@ function get_section_data($key)
 function get_partner()
 {
   $data = partner::all();
+  return $data;
+}
+
+function get_skill()
+{
+  $data = skill::all();
   return $data;
 }

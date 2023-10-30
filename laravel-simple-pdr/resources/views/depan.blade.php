@@ -10,7 +10,7 @@ $instagram = get_setting_value('_instagram');
 $tiktok = get_setting_value('_tiktok');
 $linkedin = get_setting_value('_linkedin');
 
-$partner = get_partner();
+$skills = get_skill();
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@ $partner = get_partner();
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#partner">Partner</a>
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#skills">Skills</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
           <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#profile">Profile</a>
@@ -72,34 +72,34 @@ $partner = get_partner();
       <p class="masthead-subheading font-weight-light mb-0">{!! strip_tags($jumbotron->content)!!}</p>
     </div>
   </header>
-  <!-- Partner Section-->
-  <section class="page-section portfolio" id="partner">
+  <!-- Skills Section-->
+  <section class="page-section portfolio" id="skills">
     <div class="container">
-      <!-- Partner Section Heading-->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Partner</h2>
+      <!-- Skills Section Heading-->
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Skills</h2>
       <!-- Icon Divider-->
       <div class="divider-custom">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>
       </div>
-      <!-- Partner Grid Items-->
+      <!-- Skills Grid Items-->
       <div class="row justify-content-center">
         @php
         $i=1;
         @endphp
-        @foreach ($partner as $item)
+        @foreach ($skills as $skill)
 
-        <!-- Partner Item {{$i}}-->
+        <!-- Skills Item {{$i}}-->
         <div class="col-md-6 col-lg-4 mb-5">
           <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal{{$i}}">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-75">
+              <div class="portfolio-item-caption-content text-center text-white">Click to view</i></div>
             </div>
-            <img class="img-fluid" src="{{ Storage::url($item->thumbnail) }}" alt="..." />
+            <img class="img-fluid" src="{{ Storage::url($skill->thumbnail) }}" alt="..." />
           </div>
         </div>
-        <!-- last partner {{$i}}-->
+        <!-- last skills {{$i}}-->
         @php
         $i++;
         @endphp
@@ -121,7 +121,7 @@ $partner = get_partner();
       <!-- About Section Content-->
       <div class="row">
         <div class="col-lg-3 ms-auto text-center"><img src="{{Storage::url($about->thumbnail)}}" class="w-75" /></div>
-        <div class="col-lg-5 me-auto lead">
+        <div class="col-lg-5 me-auto lead about-me-text">
           <p>{!! strip_tags($about->content)!!}</p>
         </div>
       </div>
@@ -133,14 +133,14 @@ $partner = get_partner();
       <div class="row">
         <!-- Footer Location-->
         <div class="col-lg-4 mb-5 mb-lg-0">
-          <h4 class="text-uppercase mb-4">Location</h4>
+          <h4 class="text-uppercase mb-4">Address</h4>
           <p class="lead mb-0">
             {{$location}}
           </p>
         </div>
         <!-- Footer Social Icons-->
         <div class="col-lg-4 mb-5 mb-lg-0">
-          <h4 class="text-uppercase mb-4">Around the Web</h4>
+          <h4 class="text-uppercase mb-4">Social Media</h4>
           @if ($youtube)
           <a class="btn btn-outline-light btn-social mx-1" href="{{$youtube}}" target="blank"><i
               class="fab fa-fw fa-youtube"></i></a>
@@ -175,14 +175,14 @@ $partner = get_partner();
   <div class="copyright py-4 text-center text-white">
     <div class="container"><small>Copyright &copy; {{$site_name}}</small></div>
   </div>
-  <!-- Partner Modals-->
+  <!-- Skills Modals-->
   @php
   $i=1;
   @endphp
 
-  @foreach ($partner as $item)
+  @foreach ($skills as $skill)
 
-  <!-- Partner Modal {{$i}}-->
+  <!-- Skills Modal {{$i}}-->
   <div class="portfolio-modal modal fade" id="portfolioModal{{$i}}" tabindex="-1" aria-labelledby="portfolioModal{{$i}}"
     aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -193,21 +193,24 @@ $partner = get_partner();
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-8">
-                <!-- Partner Modal - Title-->
-                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{$item->title}}</h2>
+                <!-- Skills Modal - Title-->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{$skill->nama_skill}}</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                   <div class="divider-custom-line"></div>
                   <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                   <div class="divider-custom-line"></div>
                 </div>
-                <!-- Partner Modal - Image-->
-                <img class="img-fluid rounded mb-5" src="{{ Storage::url($item->thumbnail) }}" alt="..." />
-                <!-- Partner Modal - Text-->
-                {!! strip_tags($item->content) !!}
-                <div class="m-5">
-                  Link: <a href="{{$item->link}}" target="blank">{{$item->link}}</a>
+                <!-- Skills Modal - Image-->
+                <img class="img-fluid rounded mb-5" src="{{ Storage::url($skill->thumbnail) }}" alt="..." />
+                <!-- Skills Modal - Text-->
+                <div style="font-size: 1.6rem">
+                  {{($skill->level)}}
                 </div>
+                <div style="font-size: 2rem;">
+                  {!! strip_tags($skill->keterangan) !!}
+                </div>
+                <br>
                 <button class="btn btn-primary" data-bs-dismiss="modal">
                   <i class="fas fa-xmark fa-fw"></i>
                   Close Window
