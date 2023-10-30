@@ -27,7 +27,7 @@ class Task extends Model
     return $this->belongsTo(User::class, 'creator_id');
   }
 
-  public function projects(): BelongsTo
+  public function project(): BelongsTo
   {
     return $this->belongsTo(Project::class);
   }
@@ -35,8 +35,9 @@ class Task extends Model
   // Only the same creator can see the tasks they made
   protected static function booted(): void
   {
-    static::addGlobalScope('creator', function (Builder $builder) {
-      $builder->where('creator_id', Auth::id());
+    static::addGlobalScope('member', function (Builder $builder) {
+      $builder->where('creator_id', Auth::id())
+        ->orWhereIn('project_id', Auth::user()->memberships->pluck('id'));
     });
   }
 }
